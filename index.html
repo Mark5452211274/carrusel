@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Salón de Fiestas - Carrusel</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fdf6f0;
+      color: #333;
+    }
+
+    header {
+      background-color: #d35400;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .carrusel {
+      width: 100%;
+      max-width: 900px;
+      margin: 40px auto;
+      overflow: hidden;
+      position: relative;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .carrusel-inner {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carrusel-inner img {
+      width: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .boton {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .anterior {
+      left: 10px;
+    }
+
+    .siguiente {
+      right: 10px;
+    }
+
+    footer {
+      background-color: #d35400;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Galería del Salón de Fiestas</h1>
+    <p>Páseme con 10 profe :D</p>
+  </header>
+
+  <div class="carrusel">
+    <button class="boton anterior">&#10094;</button>
+    <div class="carrusel-inner" id="carrusel">
+      <img src="imagen1.jpg" alt="Evento 1" />
+      <img src="imagen2.jpeg" alt="Evento 2" />
+      <img src="imagen3.jpg" alt="Evento 3" />
+      <img src="imagen4.jpg" alt="Evento 4" />
+      <img src="imagen5.jpg" alt="Evento 5" />
+      <img src="imagen6.jpg" alt="Evento 6" />
+    </div>
+    <button class="boton siguiente">&#10095;</button>
+  </div>
+
+  <script>
+    const carrusel = document.getElementById('carrusel');
+    const total = carrusel.children.length;
+    let index = 0;
+
+    function mostrarImagen(pos) {
+      index = (pos + total) % total; 
+      carrusel.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    document.querySelector('.siguiente').addEventListener('click', () => {
+      mostrarImagen(index + 1);
+    });
+
+    document.querySelector('.anterior').addEventListener('click', () => {
+      mostrarImagen(index - 1);
+    });
+
+    // Control con teclado (izquierda y derecha)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        mostrarImagen(index + 1);
+      } else if (e.key === 'ArrowLeft') {
+        mostrarImagen(index - 1);
+      }
+    });
+  </script>
+
+</body>
+</html>
